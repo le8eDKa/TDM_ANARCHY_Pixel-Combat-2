@@ -1,6 +1,6 @@
 {
-        "Name": "<b><i>Название режима...</i></b>",
-        "Description": "<b><i>Описание режима...</i></b>",
+        "Name": "<b><i>TDM АНАРХИЯ</i></b>",
+        "Description": "<b><i>BY LEBED & BOSS</i></b>",
         "StartClientVersion": 510,
         "MapFilter": {
                 "IsBlank": false,
