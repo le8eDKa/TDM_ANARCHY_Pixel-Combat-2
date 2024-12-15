@@ -91,7 +91,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
 	        p.Build.FloodFill.Value = true;
 
                 Способность изменения коллапса:
-	        p.Build.CollapseChangeEnable.Value = false;
+	        p.Build.CollapseChangeEnable.Value = true;
 
                 Набор всех блоков:
 	        p.Build.BlocksSet.Value = Room.BuildBlocksSet.AllClear;
