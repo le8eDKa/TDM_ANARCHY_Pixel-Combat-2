@@ -1,0 +1,11 @@
+{
+        "Name": "<b><i>Название режима...</i></b>",
+        "Description": "<b><i>Описание режима...</i></b>",
+        "StartClientVersion": 510,
+        "MapFilter": {
+                "IsBlank": false,
+                "HasParcourEnd": false
+        },
+        "MapLists": [{ "MapListId": 20138 }],
+        "Parameters": { "Bool": [], "Dropdown": [] }
+}
