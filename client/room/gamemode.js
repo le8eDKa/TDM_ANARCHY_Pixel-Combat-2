@@ -1,5 +1,5 @@
-// Я всё расписал, почитай и научись. Полёт также.
-//спасибо буду учиться
+// Добавил ещё действий с игроком.
+
 
 
 
@@ -33,11 +33,12 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
         p.Properties.Get('RoomID').Value = p.IdInRoom; // Чтобы рум айди отображался в лидерборде.
         
         // Я тебе тут исправил и всё расписал:
-        //спасибо 
+        // Спасибо.
+        // Не за что, хых. Странный способ общения через коментарии, но рабочий ._.
         if (p.id === '889D6F901662AB9B') {
                 p.Build.FlyEnable.Value = true;
                 p.inventory.MainInfinity.Value = true;
-        }       
+        }
         /*
                 Тут действия с игроком, который входит в команду, вот как это сделать:
 
@@ -51,7 +52,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
                         p.Build.FlyEnable.Value = true; // Этому игроку выдаётся полёт.
                 }
                 
-               / Что ещё можно делать с игроком, написано здесь:
+               // Что ещё можно делать с игроком, написано здесь:
 
                 Пример работы с инвенторём:
                 p.inventory.Main.Value = true; // Выдаёт первичное оружие (автомат), так как приравнивается к true.
@@ -70,6 +71,37 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
                 Полёт:
                 p.Build.FlyEnable.Value = true; // Выдаёт, так как приравнивается к true.
 
+                Пипетка:
+                p.Build.Pipette.Value = true;
+
+                Способность изменения балка:
+	        p.Build.BalkLenChange.Value = true;
+
+                Способность выделения зон:
+	        p.Build.BuildRangeEnable.Value = true;
+
+                Строительный мод:
+	        p.Build.BuildModeEnable.Value = true;
+
+                Удаление прямоугольников (кнопка с крестиком):
+	        p.Build.RemoveQuad.Value = true;
+
+                Заливка двух типов, кисти (не помню какая из них какая):
+	        p.Build.FillQuad.Value = true;
+	        p.Build.FloodFill.Value = true;
+
+                Способность изменения коллапса:
+	        p.Build.CollapseChangeEnable.Value = false;
+
+                Набор всех блоков:
+	        p.Build.BlocksSet.Value = Room.BuildBlocksSet.AllClear;
+         
+                Набор синих блоков:
+	        p.Build.BlocksSet.Value = Room.BuildBlocksSet.Blue;
+         
+                Набор красных блоков:
+	        p.Build.BlocksSet.Value = Room.BuildBlocksSet.Red;
+
                 Вывод текста игроку:
                 p.PopUp('Текст');      
         */
@@ -80,10 +112,10 @@ Room.Teams.OnPlayerChangeTeam.Add(function(p) { // При добавлении �
 
 Room.Spawns.GetContext().OnSpawn.Add(function(p) { // При спавне игрока.
         p.Properties.Immortality.Value = true; // Включаем бессмертие игроку.
-        t = p.Timers.Get('Immortality').Restart(5); // Перезапуск таймера бессмертия, чтобы оно выключалось через 5 секунд .
+        t = p.Timers.Get('Immortality').Restart(5); // Перезапускаем таймер с айди 'Immortality', чтобы бессмертие выключалось через 5 секунд.
 });
-Room.Timers.OnPlayerTimer.Add(function(t) { // При срабатывании таймеров игрока.
-        if (t.Id === 'Immortality') t.Player.Properties.Immortality.Value = false; // Отключаем бессмертие когда таймер дойдёт до 0.
+Room.Timers.OnPlayerTimer.Add(function(t) { // При срабатывании таймеров (таймер срабатывает когда его значение 0) игрока.
+        if (t.Id === 'Immortality') t.Player.Properties.Immortality.Value = false; // Если айди таймера равно 'Immortality' то отключаем бессмертие.
 });
 
 Room.Damage.OnKill.Add(function(p, k) { // При убийстве себя или другого игрока.
@@ -94,6 +126,21 @@ Room.Damage.OnDeath.Add(function(p) { // При смерти игрока.
         if (p.Team === null) return; // Если игрок вне команд, последующие действия не выполняются.
         ++p.Properties.Deaths.Value; // Увеличиваем значение смертей игрока, который умер.
 });
+
+// Задаём начальный инвентарь для всех.
+const Inventory = Room.Inventory.GetContext();
+Inventory.Main.Value = true;
+Inventory.MainInfinity.Value = false;
+Inventory.Secondary.Value = true;
+Inventory.SecondaryInfinity.Value = false;
+Inventory.Melee.Value = true;
+Inventory.Explosive.Value = true;
+Inventory.ExplosiveInfinity.Value = false;
+Inventory.Build.Value = true;
+Inventory.BuildInfinity.Value = false;
+
+const Spawns = Room.Spawns.GetContext();
+Spawns.RespawnTime.Value = 0; // Делаем так, чтобы при смерти ожитать спавн не нужно было.
 
 function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) { // Функция создания команды, которая возвращает команду.
         Room.Teams.Add(TeamName, TeamDisplayName, TeamColor); // Добавляем команду.
