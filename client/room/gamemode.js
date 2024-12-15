@@ -33,6 +33,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
         p.Properties.Get('RoomID').Value = p.IdInRoom; // Чтобы рум айди отображался в лидерборде.
         
         // Я тебе тут исправил и всё расписал:
+        //спасибо 
         if (p.id === '889D6F901662AB9B') {
                 p.Build.FlyEnable.Value = true;
         }
@@ -56,7 +57,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
                 p.inventory.Main.Value = false; // Отбирает первичное оружие (автомат), так как приравнивается к false.
 
                 Другие вещи в инвенторе:
-                p.inventory.MainInfinity.Value // Это бесконенчые патроны на первичное оружие (пистолет).
+                p.inventory.MainInfinity.Value // Это бесконенчые патроны на первичное оружие (автомат!).
                 p.inventory.Secondary.Value // Это вторичное оружие (пистолет).
                 p.inventory.SecondaryInfinity.Value // Это бесконечные патроны на вторичное оружие (пистолет).
                 p.inventory.Melee.Value // Это холодное оружие (нож).
