@@ -36,6 +36,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
         //спасибо 
         if (p.id === '889D6F901662AB9B') {
                 p.Build.FlyEnable.Value = true;
+                p.inventory.MainInfinity.Value = true;
         }
         /*
                 Тут действия с игроком, который входит в команду, вот как это сделать:
@@ -50,7 +51,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
                         p.Build.FlyEnable.Value = true; // Этому игроку выдаётся полёт.
                 }
                 
-                Что ещё можно делать с игроком, написано здесь:
+               // Что ещё можно делать с игроком, написано здесь:
 
                 Пример работы с инвенторём:
                 p.inventory.Main.Value = true; // Выдаёт первичное оружие (автомат), так как приравнивается к true.
