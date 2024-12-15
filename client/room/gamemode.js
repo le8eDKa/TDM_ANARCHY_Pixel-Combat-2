@@ -1,3 +1,8 @@
+// Я тебе сделал всё, почитай и научись.
+
+
+
+
 import * as Basic from 'pixel_combats/basic';
 import * as Room from 'pixel_combats/room';
 
