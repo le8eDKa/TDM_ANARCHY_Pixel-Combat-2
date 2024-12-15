@@ -36,8 +36,9 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
         //спасибо 
         if (p.id === '889D6F901662AB9B') {
                 p.Build.FlyEnable.Value = true;
-                
+                p.inventory.MainInfinity.Value = true;
         }
+});       
         /*
                 Тут действия с игроком, который входит в команду, вот как это сделать:
 
