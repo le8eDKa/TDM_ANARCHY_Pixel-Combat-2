@@ -19,3 +19,10 @@ function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup
         NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
         return NewTeam;
 }
+function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) { // Функция создания команды
+        Room.Teams.Add(TeamName, TeamDisplayName, TeamColor);
+        const NewTeam = Room.Teams.Get(TeamName);
+        NewTeam.Spawns.SpawnPointsGroups.Add(TeamSpawnPointGroup);
+        NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
+        return NewTeam;
+}
