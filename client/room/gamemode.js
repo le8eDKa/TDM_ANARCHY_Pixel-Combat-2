@@ -6,6 +6,8 @@ CreateNewTeam('Red', '<b><i>Революционеры</i></b>', new Basic.Color
 
 Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
         // При входе в команду
+        if(player.id === 'id'){
+                player.flymode = true;
         t.Add(p);
 });
 Room.Teams.OnPlayerChangeTeam.Add(function(p) {
