@@ -49,6 +49,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
 		p.PopUp('Привет НИКИТА >:)'); // Также не PopUP а PopUp
 	} else {
 		p.PopUp('Привет челик!');
+		p.Ui.Hint.Value = 'КАКАЯ ТО НАДПИСЬ';
 	}
         /*
                 Тут действия с игроком, который входит в команду, вот как это сделать:
