@@ -41,10 +41,15 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
         if (p.id === '889D6F901662AB9B') {
                 p.Build.FlyEnable.Value = true;
                 p.inventory.MainInfinity.Value = true;
-		if p.NickName === 'SPRUNKI Ski';
-		p.PopUP('Привет НИКИТА >:)');
-		else p.PopUP('Привет челик!')
+		// if p.NickName === 'SPRUNKI Ski';
+		// p.PopUP('Привет НИКИТА >:)');
+		// else p.PopUP('Привет челик!')
         }
+	if (p.NickName === 'SPRUNKI Ski') {
+		p.PopUp('Привет НИКИТА >:)'); // Также не PopUP а PopUp
+	} else {
+		p.PopUp('Привет челик!');
+	}
         /*
                 Тут действия с игроком, который входит в команду, вот как это сделать:
 
