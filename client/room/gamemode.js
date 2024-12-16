@@ -35,6 +35,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
         // Я тебе тут исправил и всё расписал:
         // Спасибо.
         // Не за что, хых. Странный способ общения через коментарии, но рабочий ._.
+	//ага ,а как добавить в лидерборды основное id игрока (не room id)в таблицу кста этот комент написал с телефона 
         if (p.id === '889D6F901662AB9B') {
                 p.Build.FlyEnable.Value = true;
                 p.inventory.MainInfinity.Value = true;
