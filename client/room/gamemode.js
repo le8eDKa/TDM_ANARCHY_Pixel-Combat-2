@@ -35,7 +35,9 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
         // Я тебе тут исправил и всё расписал:
         // Спасибо.
         // Не за что, хых. Странный способ общения через коментарии, но рабочий ._.
-	//ага ,а как добавить в лидерборды основное id игрока (не room id)в таблицу кста этот комент написал с телефона 
+	// Ага, а как добавить в лидерборды основное айди игрока (не рум айди) в таблицу (кста этот комент написал с телефона).
+	// В лидерборде не будет его видно, я проверял. Позже возможно научу делать чат команды и там будет способ как узнать чужое айди.
+	// Пока что я добавил тебе ещё функций с игроком.
         if (p.id === '889D6F901662AB9B') {
                 p.Build.FlyEnable.Value = true;
                 p.inventory.MainInfinity.Value = true;
@@ -80,14 +82,14 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
 
                 Способность выделения зон:
 	        p.Build.BuildRangeEnable.Value = true;
-
+	 	
                 Строительный мод:
 	        p.Build.BuildModeEnable.Value = true;
 
                 Удаление прямоугольников (кнопка с крестиком):
 	        p.Build.RemoveQuad.Value = true;
 
-                Заливка двух типов, кисти (не помню какая из них какая):
+                Заливка прямоугольников, кисти двух типов (не помню какая из них какая):
 	        p.Build.FillQuad.Value = true;
 	        p.Build.FloodFill.Value = true;
 
@@ -102,6 +104,15 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) { // При нажатии на 
          
                 Набор красных блоков:
 	        p.Build.BlocksSet.Value = Room.BuildBlocksSet.Red;
+
+		Другие функции (те команды что при нажатии на паузу):
+		p.Build.ChangeSpawnsEnable.Value = true;
+		p.Build.LoadMapEnable.Value = true;
+		p.Build.ChangeMapAuthorsEnable.Value = true;
+		p.Build.GenMapEnable.Value = true;
+		p.Build.ChangeCameraPointsEnable.Value = true;
+		p.Build.QuadChangeEnable.Value = true;
+		p.Build.SetSkyEnable.Value = true;
 
                 Вывод текста игроку:
                 p.PopUp('Текст');      
