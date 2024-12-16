@@ -143,6 +143,10 @@ Room.Damage.OnKill.Add(function(p, k) { // При убийстве себя ил
         if (p.Team === null || k.Team === null) return; // Если игрок вне команд, последующие действия не выполняются.
         if (p.Team !== k.Team) ++p.Properties.Kills.Value; // Если убитый не тот же самый игрок что убил, увеличиваем значение убийств игрока, который убил кого-то.
 });
+Room.Damage.OnDamage.Add(function(p, dmgd, dmg) { // При уроне себе или другому игроку.
+        if (p.Team === null || dmgd.Team === null) return; // Если игрок вне команд, последующие действия не выполняются.
+	if (p.id !== dmgd.id) p.Properties.Scores.Value += Math.ceil(dmg); // Если нанесли урон игроку не тому же самому игрок что нанёс, добавляем игроку очки в количестве урона.
+});
 Room.Damage.OnDeath.Add(function(p) { // При смерти игрока.
         if (p.Team === null) return; // Если игрок вне команд, последующие действия не выполняются.
         ++p.Properties.Deaths.Value; // Увеличиваем значение смертей игрока, который умер.
