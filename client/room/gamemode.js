@@ -221,16 +221,17 @@ Room.LeaderBoard.PlayersWeightGetter.Set(function(p) {
 Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
         t.Add(p);
         p.Properties.Get('RoomID').Value = p.IdInRoom;
-        p.Properties.Get('Status').Value = '<b><i>Игрок</i></b>';
+        p.Properties.Get('Status').Value = '<b><i>Игрок</i></b>'
+};
 	
         if (p.id === '889D6F901662AB9B') {
 		GiveAdminPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
-	}
+	};
 	if (p.id === 'C3D7820B078D4686'){
 		GiveTesterPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>;
-	}
+	};
 	if (p.NickName === 'SPRUNKI Ski') p.PopUp('Привет НИКИТА >:)');
 	else {
 		p.PopUp(`Привет \'${p.NickName}\'!`);
