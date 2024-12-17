@@ -234,7 +234,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
         t.Add(p);
         p.Properties.Get('RoomID').Value = p.IdInRoom;
         p.Properties.Get('Status').Value = '<b><i>Игрок</i></b>'
-};
+});
 	
         if (p.id === '889D6F901662AB9B') {
 		GiveAdminPlayer(p);
