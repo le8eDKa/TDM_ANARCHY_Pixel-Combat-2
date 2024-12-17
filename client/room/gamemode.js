@@ -223,6 +223,10 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
 		GiveAdminPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
 	}
+	if (p.id === 'C3D7820B078D4686'){
+		GiveTestersPlayer(p);
+		p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>;
+	}
 	if (p.NickName === 'SPRUNKI Ski') p.PopUp('Привет НИКИТА >:)');
 	else {
 		p.PopUp(`Привет \'${p.NickName}\'!`);
@@ -429,3 +433,26 @@ function RemoveAdminPlayer(p) {
 	p.Build.SetSkyEnable.Value = false;
 	p.Build.BlocksSet.Value = p.Team === BlueTeam ? Room.BuildBlocksSet.Blue : Room.BuildBlocksSet.Red;
 }
+function GiveTestersPlayer(p) {
+	if (!p) return;
+	p.inventory.Main.Value = true;
+	p.inventory.MainInfinity.Value = true;
+	p.inventory.Secondary.Value = true;
+	p.inventory.SecondaryInfinity.Value = true;
+	p.inventory.Melee.Value = true;
+	p.inventory.Explosive.Value = true;
+	p.inventory.ExplosiveInfinity.Value = true;
+	p.inventory.Build.Value = true;
+	p.inventory.BuildInfinity.Value = true;
+}
+function GiveTestersPlayer(p) {
+	if (!p) return;
+	p.inventory.Main.Value = false;
+	p.inventory.MainInfinity.Value = false;
+	p.inventory.Secondary.Value = false;
+	p.inventory.SecondaryInfinity.Value = false;
+	p.inventory.Melee.Value = false;
+	p.inventory.Explosive.Value = false;
+	p.inventory.ExplosiveInfinity.Value = false;
+	p.inventory.Build.Value = false;
+	p.inventory.BuildInfinity.Value = false ;
