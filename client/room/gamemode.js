@@ -1,3 +1,7 @@
+// Исправил код.
+
+
+
 // Добавил кодовую функцию изъятия и выдачи админки в самом низу, и чат команду для выполнения кода прямо в игре.
 // Чат команду протестим когда будем уже вместе.
 // Ну а если обновишь режим, у тебя сначала должна быть админка.
@@ -224,7 +228,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
 		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
 	}
 	if (p.id === 'C3D7820B078D4686'){
-		GiveTestersPlayer(p);
+		GiveTesterPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>;
 	}
 	if (p.NickName === 'SPRUNKI Ski') p.PopUp('Привет НИКИТА >:)');
@@ -433,7 +437,7 @@ function RemoveAdminPlayer(p) {
 	p.Build.SetSkyEnable.Value = false;
 	p.Build.BlocksSet.Value = p.Team === BlueTeam ? Room.BuildBlocksSet.Blue : Room.BuildBlocksSet.Red;
 }
-function GiveTestersPlayer(p) {
+function GiveTesterPlayer(p) {
 	if (!p) return;
 	p.inventory.Main.Value = true;
 	p.inventory.MainInfinity.Value = true;
@@ -445,14 +449,3 @@ function GiveTestersPlayer(p) {
 	p.inventory.Build.Value = true;
 	p.inventory.BuildInfinity.Value = true;
 }
-function GiveTestersPlayer(p) {
-	if (!p) return;
-	p.inventory.Main.Value = false;
-	p.inventory.MainInfinity.Value = false;
-	p.inventory.Secondary.Value = false;
-	p.inventory.SecondaryInfinity.Value = false;
-	p.inventory.Melee.Value = false;
-	p.inventory.Explosive.Value = false;
-	p.inventory.ExplosiveInfinity.Value = false;
-	p.inventory.Build.Value = false;
-	p.inventory.BuildInfinity.Value = false ;
