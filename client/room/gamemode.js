@@ -1,4 +1,6 @@
 //код не заработал :(
+//кнопки входа в команду не появились
+
 
 
 
@@ -251,7 +253,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
         if (p.id === '889D6F901662AB9B') {
 		GiveAdminPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
-	};
+	});
 	if (p.id === 'C3D7820B078D4686'){
 		GiveTesterPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>;
