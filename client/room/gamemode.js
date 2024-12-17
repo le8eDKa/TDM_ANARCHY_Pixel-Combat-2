@@ -207,6 +207,7 @@ Room.LeaderBoard.PlayerLeaderBoardValues = [
         new Basic.DisplayValueHeader('Kills', '<b><i>Убийства</i></b>', '<b><i>Убийства</i></b>'),
         new Basic.DisplayValueHeader('Deaths', '<b><i>Смерти</i></b>', '<b><i>Смерти</i></b>'),
         new Basic.DisplayValueHeader('Scores', '<b><i>Очки</i></b>', '<b><i>Очки</i></b>'),
+        new Basic.DisplayValueHeader('Status', '<b><i>Статус</i></b>', '<b><i>Статус</i></b>'),
         new Basic.DisplayValueHeader('RoomID', '<b><i>Room ID</i></b>', '<b><i>Room ID</i></b>')
 ];
 Room.LeaderBoard.PlayersWeightGetter.Set(function(p) {
@@ -216,7 +217,12 @@ Room.LeaderBoard.PlayersWeightGetter.Set(function(p) {
 Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
         t.Add(p);
         p.Properties.Get('RoomID').Value = p.IdInRoom;
-        if (p.id === '889D6F901662AB9B') GiveAdminPlayer(p);
+        p.Properties.Get('Status').Value = '<b><i>Игрок</i></b>';
+	
+        if (p.id === '889D6F901662AB9B') {
+		GiveAdminPlayer(p);
+		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
+	}
 	if (p.NickName === 'SPRUNKI Ski') p.PopUp('Привет НИКИТА >:)');
 	else {
 		p.PopUp(`Привет \'${p.NickName}\'!`);
