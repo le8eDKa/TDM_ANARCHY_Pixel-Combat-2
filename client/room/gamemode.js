@@ -242,9 +242,7 @@ if (FunctionName === 'хилка') { // Если команда — 'хилка'
             p.PopUp(`Игроку с ID ${PlayerId} установлено здоровье ${NewHealth}.`);
         } catch (error) {
             p.PopUp(`Ошибка: Не удалось установить здоровье для игрока с ID ${PlayerId}.`);
-        }
-    });
-}
+	}
 
 
 import * as Basic from 'pixel_combats/basic';
