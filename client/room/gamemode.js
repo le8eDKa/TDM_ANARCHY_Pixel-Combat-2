@@ -204,7 +204,7 @@ Room.Damage.GetContext().DamageOut.Value = true;
 Room.Damage.GetContext().FriendlyFire.Value = true;
 Room.TeamsBalancer.IsAutoBalance = true;
 
-const BlueTeam = CreateNewTeam('Blue', '<b><i>Синие</i></b>', new Basic.Color(0, 0, 1, 0), 1, Room.BuildBlocksSet.Blue),
+const BlueTeam = CreateNewTeam('Blue', '<b><i>Государство Анархия</i></b>', new Basic.Color(0, 0, 1, 0), 1, Room.BuildBlocksSet.Blue),
         RedTeam = CreateNewTeam('Red', '<b><i>Революционеры</i></b>', new Basic.Color(1, 0, 0, 0), 2, Room.BuildBlocksSet.Red);
 
 Room.LeaderBoard.PlayerLeaderBoardValues = [
@@ -226,13 +226,31 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
 		GiveAdminPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
 	}
-// Проверка ID в массиве
-if (p.id === 'C3D7820B078D4686'||'6B04EDB276BB9145'){
+	if (p.id === 'C3D7820B078D4686'||'6B04EDB276BB9145'){
 		GiveTesterPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>';
-}
+	}
 
-	if (p.NickName === 'SPRUNKI Ski') p.PopUp('Привет НИКИТА >:)');
+	if (p.id === 'AF89DB0FE9E8495F'){
+		p.PopUp('Привет НИКИТА >:)');
+		p.PopUp('Привет Хрен тебе а не админка');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+		p.PopUp('Привет лоооооооооох');
+	}
 	else {
 		p.PopUp(`Привет \'${p.NickName}\'!`);
 		p.Ui.Hint.Value = 'Здесь должен быть текст, но его нет ._.';
