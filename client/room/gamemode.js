@@ -115,7 +115,7 @@ function SetPlayerFullInventory(p, v) {
 }
 
 // Создание новых команд
-function createTeam(Name, DisplayName, Color, SpawnGroups, BuildBlocksSet) {
+function CreateTeam(Name, DisplayName, Color, SpawnGroups, BuildBlocksSet) {
     const Team = Room.Teams.Add(Name, DisplayName, Color);
     Team.Spawns.SpawnPointsGroups.Add(SpawnGroup);
     Team.Build.BlocksSet.Value = BuildBlocksSet;
