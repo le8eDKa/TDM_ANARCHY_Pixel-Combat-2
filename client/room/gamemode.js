@@ -238,26 +238,58 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
 		p.PopUp('Привет НИКИТА >:)');
 		p.PopUp('Привет Хрен тебе а не админка');
 		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
-		p.PopUp('Привет лоооооооооох');
+		p.Ui.Hint.Value = 'Здесь должен быть текст, но его нет ._.';
 	}
 	else {
 		p.PopUp(`Привет \'${p.NickName}\'!`);
 		p.Ui.Hint.Value = 'Здесь должен быть текст, но его нет ._.';
 	}
+	Room.Chat.OnMessage.Add(function(Message) {
+    const MessageText = Message.Text.trim();
+
+Room.Chat.OnMessage.Add(function(Message) {
+    const MessageText = Message.Text.trim();
+//Ниже то что я сделал через чат GPT  Буду тестить
+    // Проверка на команду
+    if (MessageText[0] !== '/') return;
+
+    // Проверка, если команда /хилка
+    if (MessageText.slice(1, 7) === 'хилка') {
+        // Парсим аргументы команды
+        const args = MessageText.slice(7).trim().split(' ');
+
+        // Проверка наличия аргументов
+        if (args.length !== 2) {
+            Room.Players.GetByRoomId(Message.Sender).PopUp('Ошибка! Команда должна быть в формате: /хилка <Room ID> <Здоровье>');
+            return;
+        }
+
+        const roomId = args[0]; // ID комнаты игрока
+        const healthAmount = parseInt(args[1]); // Количество здоровья для добавления
+
+        // Проверка на корректность введённого здоровья
+        if (isNaN(healthAmount)) {
+            Room.Players.GetByRoomId(Message.Sender).PopUp('Ошибка! Укажите корректное количество здоровья.');
+            return;
+        }
+
+        // Проверка на авторизацию (замените на нужное ID)
+        if (Message.Sender.id !== '889D6F901662AB9B') {
+            Room.Players.GetByRoomId(Message.Sender).PopUp('У вас нет прав для выполнения этой команды.');
+            return;
+        }
+
+        // Находим игрока по Room ID
+        const targetPlayer = Room.Players.GetByRoomId(roomId);
+
+        if (targetPlayer) {
+            targetPlayer.Health.Value += healthAmount; // Добавляем здоровье
+            Room.Players.GetByRoomId(Message.Sender).PopUp(`Здоровье игроку с Room ID ${roomId} добавлено на ${healthAmount} единиц.`);
+        } else {
+            Room.Players.GetByRoomId(Message.Sender).PopUp('Ошибка! Игрок с таким Room ID не найден.');
+        }
+    }
+});
         /*
                 Тут действия с игроком, который входит в команду, вот как это сделать:
 
