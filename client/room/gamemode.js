@@ -1,6 +1,7 @@
 
 // Исправил ;) 'Тестировщик' когда писал ты, не закрыл кавычку.
 //все работает :)
+//я кое чо сделал через чат гпт 
 
 // Добавил кодовую функцию изъятия и выдачи админки в самом низу, и чат команду для выполнения кода прямо в игре.
 // Чат команду протестим когда будем уже вместе.
@@ -194,6 +195,57 @@
   	Пока этот код неработоспособен, так как его нужно правильным образом вставить в обработку чата, и действия с игроком не дописаны. Но о этом позже.
    	Теперь ты знаешь JS на 1% больше! ;)
 */
+const MessageText = '/хилка 100 2 4 6'; // Пример команды: здоровье — 100, ID игроков — 2, 4, 6.
+if (!MessageText.startsWith('/')) return; // Проверяем, начинается ли команда с '/'.
+
+const [FunctionName, Health, ...PlayerIds] = MessageText.slice(1).split(' '); // Разделяем команду на части.
+
+if (FunctionName === 'хилка') { // Если команда — 'хилка'.
+    // Проверка значения здоровья.
+    const NewHealth = Number(Health);
+    if (isNaN(NewHealth) || NewHealth <= 0) {
+        p.PopUp('Ошибка: Некорректное значение здоровья. Укажите положительное число.');
+        return;
+    }
+
+    // Проверка, что ID игроков указаны.
+    if (PlayerIds.length === 0) {
+        p.PopUp('Ошибка: Не указаны ID игроков. Добавьте ID через пробел.');
+        return;
+    }
+
+    // Проверка ID игроков на корректность.
+    const InvalidIds = PlayerIds.filter(id => isNaN(Number(id)));
+    if (InvalidIds.length > 0) {
+        p.PopUp(`Ошибка: Некорректные ID игроков: ${InvalidIds.join(', ')}.`);
+        return;
+    }
+
+    // Преобразуем ID в числа.
+    const PlayerIdList = PlayerIds.map(id => Number(id));
+
+    PlayerIdList.forEach(PlayerId => {
+        const Player = Room.Players.GetByRoomId(PlayerId); // Получаем игрока по ID.
+        if (!Player) {
+            p.PopUp(`Ошибка: Игрок с ID ${PlayerId} не найден.`);
+            return;
+        }
+
+        if (!Player.Team) {
+            p.PopUp(`Ошибка: Игрок с ID ${PlayerId} не состоит в команде.`);
+            return;
+        }
+
+        // Устанавливаем здоровье.
+        try {
+            Player.Health = NewHealth; // Устанавливаем здоровье.
+            p.PopUp(`Игроку с ID ${PlayerId} установлено здоровье ${NewHealth}.`);
+        } catch (error) {
+            p.PopUp(`Ошибка: Не удалось установить здоровье для игрока с ID ${PlayerId}.`);
+        }
+    });
+}
+
 
 import * as Basic from 'pixel_combats/basic';
 import * as Room from 'pixel_combats/room';
