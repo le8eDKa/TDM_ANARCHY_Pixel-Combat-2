@@ -209,157 +209,155 @@ Room.Damage.GetContext().FriendlyFire.Value = true;
 Room.TeamsBalancer.IsAutoBalance = true;
 
 // Создание команд
-const BlueTeam = createTeam('Blue', '<b><i>Государство Анархия</i></b>', new Basic.Color(0, 0, 1, 0), 1, Room.BuildBlocksSet.Blue),
-      RedTeam = createTeam('Red', '<b><i>Революционеры</i></b>', new Basic.Color(1, 0, 0, 0), 2, Room.BuildBlocksSet.Red);
+const BlueTeam = createTeam('Blue', '<b><i>Государство Анархия</i></b>', new Basic.Color(0, 0, 1, 0), 1, Room.BuildBlocksSet.Blue);
+const RedTeam = createTeam('Red', '<b><i>Революционеры</i></b>', new Basic.Color(1, 0, 0, 0), 2, Room.BuildBlocksSet.Red);
 
 // Установки для отображения статистики игроков
 Room.LeaderBoard.PlayerLeaderBoardValues = [
-        new Basic.DisplayValueHeader('Kills', '<b><i>Убийства</i></b>', '<b><i>Убийства</i></b>'),
-        new Basic.DisplayValueHeader('Deaths', '<b><i>Смерти</i></b>', '<b><i>Смерти</i></b>'),
-        new Basic.DisplayValueHeader('Scores', '<b><i>Очки</i></b>', '<b><i>Очки</i></b>'),
-        new Basic.DisplayValueHeader('Status', '<b><i>Статус</i></b>', '<b><i>Статус</i></b>'),
-        new Basic.DisplayValueHeader('RoomID', '<b><i>Room ID</i></b>', '<b><i>Room ID</i></b>')
+    new Basic.DisplayValueHeader('Kills', '<b><i>Убийства</i></b>', '<b><i>Убийства</i></b>'),
+    new Basic.DisplayValueHeader('Deaths', '<b><i>Смерти</i></b>', '<b><i>Смерти</i></b>'),
+    new Basic.DisplayValueHeader('Scores', '<b><i>Очки</i></b>', '<b><i>Очки</i></b>'),
+    new Basic.DisplayValueHeader('Status', '<b><i>Статус</i></b>', '<b><i>Статус</i></b>'),
+    new Basic.DisplayValueHeader('RoomID', '<b><i>Room ID</i></b>', '<b><i>Room ID</i></b>')
 ];
 Room.LeaderBoard.PlayersWeightGetter.Set(p => p.Properties.Kills.Value);
 
 // Обработчик подключения игроков
-Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
-        t.Add(p);
-        p.Properties.Get('RoomID').Value = p.IdInRoom;
-        p.Properties.Get('Status').Value = '<b><i>Игрок</i></b>';
-        setupPlayerPermissions(p);
-        sendWelcomeMessages(p);
+Room.Teams.OnRequestJoinTeam.Add((p, t) => {
+    t.Add(p);
+    p.Properties.Get('RoomID').Value = p.IdInRoom;
+    p.Properties.Get('Status').Value = '<b><i>Игрок</i></b>';
+    setupPlayerPermissions(p);
+    sendWelcomeMessages(p);
 });
 
 // Обработчик спауна игроков
 Room.Spawns.GetContext().OnSpawn.Add(p => {
-        p.Properties.Immortality.Value = true;
-        p.Timers.Get('Immortality').Restart(5);
+    p.Properties.Immortality.Value = true;
+    p.Timers.Get('Immortality').Restart(5);
 });
 
 // Убираем бессмертие после таймера
-Room.Timers.OnPlayerTimer.Add(function(t) {
-        if (t.Id === 'Immortality') t.Player.Properties.Immortality.Value = false;
+Room.Timers.OnPlayerTimer.Add(t => {
+    if (t.Id === 'Immortality') t.Player.Properties.Immortality.Value = false;
 });
 
 // Обработчики для получения очков и убийств
 Room.Damage.OnKill.Add((p, k) => {
-        if (p.Team && k.Team && p.Team !== k.Team) ++p.Properties.Kills.Value;
+    if (p.Team && k.Team && p.Team !== k.Team) ++p.Properties.Kills.Value;
 });
 
 Room.Damage.OnDamage.Add((p, dmgd, dmg) => {
-        if (p.Team && dmgd.Team && p.id !== dmgd.id) p.Properties.Scores.Value += Math.ceil(dmg);
+    if (p.Team && dmgd.Team && p.id !== dmgd.id) p.Properties.Scores.Value += Math.ceil(dmg);
 });
 
 Room.Damage.OnDeath.Add(p => {
-        if (p.Team) ++p.Properties.Deaths.Value;
+    if (p.Team) ++p.Properties.Deaths.Value;
 });
 
 // Обработчик сообщений в чате
-Room.Chat.OnMessage.Add(function(Message) {
-        const MessageText = Message.Text.trim();
-        if (MessageText[0] !== '/') return;
+Room.Chat.OnMessage.Add(Message => {
+    const MessageText = Message.Text.trim();
+    if (MessageText[0] !== '/') return;
 
-        if (MessageText.slice(1, 7) === 'хилка') {
-                handleHealCommand(Message, MessageText);
-        }
+    if (MessageText.slice(1, 7) === 'хилка') {
+        handleHealCommand(Message, MessageText);
+    }
 });
 
 // Функция обработки команды хилка
 function handleHealCommand(Message, MessageText) {
-        const args = MessageText.slice(7).trim().split(' ');
-        if (args.length !== 2) {
-                return Message.Sender.PopUp('Ошибка! Команда должна быть в формате: /хилка <Room ID> <Здоровье>');
-        }
+    const args = MessageText.slice(7).trim().split(' ');
+    if (args.length !== 2) {
+        return Message.Sender.PopUp('Ошибка! Команда должна быть в формате: /хилка <Room ID> <Здоровье>');
+    }
 
-        const roomId = args[0];
-        const healthAmount = parseInt(args[1]);
+    const roomId = args[0];
+    const healthAmount = parseInt(args[1]);
 
-        if (isNaN(healthAmount)) {
-                return Message.Sender.PopUp('Ошибка! Укажите корректное количество здоровья.');
-        }
+    if (isNaN(healthAmount)) {
+        return Message.Sender.PopUp('Ошибка! Укажите корректное количество здоровья.');
+    }
 
-        if (Message.Sender.id !== '889D6F901662AB9B') {
-                return Message.Sender.PopUp('У вас нет прав для выполнения этой команды.');
-        }
+    if (Message.Sender.id !== '889D6F901662AB9B') {
+        return Message.Sender.PopUp('У вас нет прав для выполнения этой команды.');
+    }
 
-        const targetPlayer = Room.Players.GetByRoomId(roomId);
-        if (targetPlayer) {
-                targetPlayer.Health.Value += healthAmount;
-                Message.Sender.PopUp(`Здоровье игроку с Room ID ${roomId} добавлено на ${healthAmount} единиц.`);
-        } else {
-                Message.Sender.PopUp('Ошибка! Игрок с таким Room ID не найден.');
-        }
+    const targetPlayer = Room.Players.GetByRoomId(roomId);
+    if (targetPlayer) {
+        targetPlayer.Health.Value += healthAmount;
+        Message.Sender.PopUp(`Здоровье игроку с Room ID ${roomId} добавлено на ${healthAmount} единиц.`);
+    } else {
+        Message.Sender.PopUp('Ошибка! Игрок с таким Room ID не найден.');
+    }
 }
 
 // Функция настройки прав игрока
 function setupPlayerPermissions(p) {
-        if (p.id === '889D6F901662AB9B') {
-                giveAdminPermissions(p);
-                p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
-        } else if (['C3D7820B078D4686', '6B04EDB276BB9145'].includes(p.id)) {
-                giveTesterPermissions(p);
-                p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>';
-        }
+    if (p.id === '889D6F901662AB9B') {
+        giveAdminPermissions(p);
+        p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
+    } else if (['C3D7820B078D4686', '6B04EDB276BB9145'].includes(p.id)) {
+        giveTesterPermissions(p);
+        p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>';
+    }
 }
 
 // Функция приветственного сообщения
 function sendWelcomeMessages(p) {
-        if (p.id === 'AF89DB0FE9E8495F') {
-                p.PopUp('Привет НИКИТА >:)');
-                p.PopUp('Привет Хрен тебе а не админка');
-                p.PopUp('Привет лоооооооооох');
-                p.Ui.Hint.Value = 'Здесь должен быть текст, но его нет ._.';
-        } else {
-                p.PopUp(`Привет \'${p.NickName}\'!`);
-                p.Ui.Hint.Value = 'Здесь должен быть текст, но его нет ._.';
-        }
+    const message = p.id === 'AF89DB0FE9E8495F'
+        ? ['Привет НИКИТА >:)', 'Привет Хрен тебе а не админка', 'Привет лоооооооооох']
+        : [`Привет \'${p.NickName}\'!`];
+    
+    message.forEach(msg => p.PopUp(msg));
+    p.Ui.Hint.Value = 'Здесь должен быть текст, но его нет ._.';
 }
 
 // Функции для выдачи прав
 function giveAdminPermissions(p) {
-        setPermissions(p, true);
-        p.Build.Pipette.Value = true;
-        p.Build.FlyEnable.Value = true;
-        p.Build.BalkLenChange.Value = true;
-        p.Build.BuildRangeEnable.Value = true;
-        p.Build.BuildModeEnable.Value = true;
-        p.Build.RemoveQuad.Value = true;
-        p.Build.FillQuad.Value = true;
-        p.Build.FloodFill.Value = true;
-        p.Build.ChangeSpawnsEnable.Value = true;
-        p.Build.LoadMapEnable.Value = true;
-        p.Build.ChangeMapAuthorsEnable.Value = true;
-        p.Build.GenMapEnable.Value = true;
-        p.Build.ChangeCameraPointsEnable.Value = true;
-        p.Build.CollapseChangeEnable.Value = true;
-        p.Build.QuadChangeEnable.Value = true;
-        p.Build.SetSkyEnable.Value = true;
+    setPermissions(p, true);
+    p.Build.Pipette.Value = true;
+    p.Build.FlyEnable.Value = true;
+    p.Build.BalkLenChange.Value = true;
+    p.Build.BuildRangeEnable.Value = true;
+    p.Build.BuildModeEnable.Value = true;
+    p.Build.RemoveQuad.Value = true;
+    p.Build.FillQuad.Value = true;
+    p.Build.FloodFill.Value = true;
+    p.Build.ChangeSpawnsEnable.Value = true;
+    p.Build.LoadMapEnable.Value = true;
+    p.Build.ChangeMapAuthorsEnable.Value = true;
+    p.Build.GenMapEnable.Value = true;
+    p.Build.ChangeCameraPointsEnable.Value = true;
+    p.Build.CollapseChangeEnable.Value = true;
+    p.Build.QuadChangeEnable.Value = true;
+    p.Build.SetSkyEnable.Value = true;
 }
 
 function giveTesterPermissions(p) {
-        setPermissions(p, true);
+    setPermissions(p, true);
 }
 
 function setPermissions(p, value) {
-        p.inventory.Main.Value = value;
-        p.inventory.MainInfinity.Value = value;
-        p.inventory.Secondary.Value = value;
-        p.inventory.SecondaryInfinity.Value = value;
-        p.inventory.Melee.Value = value;
-        p.inventory.Explosive.Value = value;
-        p.inventory.ExplosiveInfinity.Value = value;
-        p.inventory.Build.Value = value;
-        p.inventory.BuildInfinity.Value = value;
+    p.inventory.Main.Value = value;
+    p.inventory.MainInfinity.Value = value;
+    p.inventory.Secondary.Value = value;
+    p.inventory.SecondaryInfinity.Value = value;
+    p.inventory.Melee.Value = value;
+    p.inventory.Explosive.Value = value;
+    p.inventory.ExplosiveInfinity.Value = value;
+    p.inventory.Build.Value = value;
+    p.inventory.BuildInfinity.Value = value;
 }
 
 // Создание новых команд
 function createTeam(name, displayName, color, spawnGroup, buildBlocksSet) {
-        const team = Room.Teams.Add(name, displayName, color);
-        team.Spawns.SpawnPointsGroups.Add(spawnGroup);
-        team.Build.BlocksSet.Value = buildBlocksSet;
-        return team;
+    const team = Room.Teams.Add(name, displayName, color);
+    team.Spawns.SpawnPointsGroups.Add(spawnGroup);
+    team.Build.BlocksSet.Value = buildBlocksSet;
+    return team;
 }
+
 
         /*
                 Тут действия с игроком, который входит в команду, вот как это сделать:
