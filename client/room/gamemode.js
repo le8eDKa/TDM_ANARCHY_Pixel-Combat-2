@@ -227,16 +227,11 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
 		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
 	}
 // Проверка ID в массиве
-        if (testerIds.includes(p.id)) {
-                GiveTesterPlayer(p);
-                p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>';
-        }
+if (p.id === 'C3D7820B078D4686'||'6B04EDB276BB9145'){
+		GiveTesterPlayer(p);
+		p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>';
+}
 
-
-
-
-let testlet testerIds = ['C3D7820B078D4686', '6B04EDB276BB9145'];erIds = ['C3D7820B078D4686', '6B04EDB276BB9145'];
-	
 	if (p.NickName === 'SPRUNKI Ski') p.PopUp('Привет НИКИТА >:)');
 	else {
 		p.PopUp(`Привет \'${p.NickName}\'!`);
