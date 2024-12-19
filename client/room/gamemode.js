@@ -12,8 +12,8 @@ Room.Damage.GetContext().DamageOut.Value = true;
 Room.Damage.GetContext().FriendlyFire.Value = true;
 Room.TeamsBalancer.IsAutoBalance = true;
 
-const BlueTeam = CreateTeam('Blue', '<b><i>Государство</i></b>', new Basic.Color(0, 0, 1, 0), 1, Room.BuildBlocksSet.Blue),
-	RedTeam = CreateTeam('Red', '<b><i>Революционеры</i></b>', new Basic.Color(1, 0, 0, 0), 2, Room.BuildBlocksSet.Red);
+const BlueTeam = CreateNewTeam('Blue', '<b><i>Государство</i></b>', new Basic.Color(0, 0, 1, 0), 1, Room.BuildBlocksSet.Blue),
+	RedTeam = CreateNewTeam('Red', '<b><i>Революционеры</i></b>', new Basic.Color(1, 0, 0, 0), 2, Room.BuildBlocksSet.Red);
 
 Room.LeaderBoard.PlayerLeaderBoardValues = [
 	new Basic.DisplayValueHeader('Kills', '<b><i>Убийства</i></b>', '<b><i>Убийства</i></b>'),
