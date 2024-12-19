@@ -1,8 +1,8 @@
-// Вроде бы исправил ._. Но лучше больше так не делай, я долго думал как это исправить.
-// К тому же теперь код грязный, надо будет чистить ._.
-//спасибо конечно но он все ещё не рабочий :|вообще как до этого было так и сейчас только одна команда в которую нельзя зайти:|
-//ладно больше так не буду делать
-//я убедился что единственное что он может делать смайлики ASCII менять и то когда его не просят :\
+// Опять посмотрел и постарался исправить код, попробуй ещё раз проверить.
+// И кстати, я добавил чат команду '/code [КОД]', которая выполняет код который ты напишешь прямо на ходу (во время игры).
+// Попробуй её использовать если код сработает. Только знай что здесь нужны также ';' после if else и так далее и тому подобное.
+// Например попробуй ввести в чат '/code const p = Room.Players.GetByRoomId(1); p.PopUp('Привет!');'.
+
 import * as Basic from 'pixel_combats/basic';
 import * as Room from 'pixel_combats/room';
 
@@ -37,6 +37,9 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
         	GiveTesterPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>';
     	}
+});
+Room.Teams.OnPlayerChangeTeam.Add(function(p) { 
+        p.Spawns.Spawn();
 	if (p.id === 'AF89DB0FE9E8495F') p.PopUp('Привет НИКИТА >:)');
 	else p.PopUp(`Привет \'${p.NickName}\'!`);
 });
@@ -51,15 +54,18 @@ Room.Timers.OnPlayerTimer.Add(function(t) {
 });
 
 Room.Damage.OnKill.Add(function(p, k) {
-	if (p.Team && k.Team && p.Team !== k.Team) ++p.Properties.Kills.Value;
+	if (p.Team === null || k.Team === null) return;
+	if (p.Team !== k.Team) ++p.Properties.Kills.Value;
 });
 
 Room.Damage.OnDamage.Add(function(p, dmgd, dmg) {
-	if (p.Team && dmgd.Team && p.id !== dmgd.id) p.Properties.Scores.Value += Math.ceil(dmg);
+	if (p.Team === null || dmgd.Team === null) return;
+	if (p.id !== dmgd.id) p.Properties.Scores.Value += Math.ceil(dmg);
 });
 
 Room.Damage.OnDeath.Add(function(p) {
-	if (p.Team) ++p.Properties.Deaths.Value;
+	if (p.Team === null) return;
+	++p.Properties.Deaths.Value;
 });
 
 globalThis.Room = Room;
@@ -81,45 +87,60 @@ Room.Chat.OnMessage.Add(function(Message) {
 });
 
 function GiveAdminPlayer(p) {
-    SetPlayerFullInventory(p, true);
-    p.Build.Pipette.Value = true;
-    p.Build.FlyEnable.Value = true;
-    p.Build.BalkLenChange.Value = true;
-    p.Build.BuildRangeEnable.Value = true;
-    p.Build.BuildModeEnable.Value = true;
-    p.Build.RemoveQuad.Value = true;
-    p.Build.FillQuad.Value = true;
-    p.Build.FloodFill.Value = true;
-    p.Build.ChangeSpawnsEnable.Value = true;
-    p.Build.LoadMapEnable.Value = true;
-    p.Build.ChangeMapAuthorsEnable.Value = true;
-    p.Build.GenMapEnable.Value = true;
-    p.Build.ChangeCameraPointsEnable.Value = true;
-    p.Build.CollapseChangeEnable.Value = true;
-    p.Build.QuadChangeEnable.Value = true;
-    p.Build.SetSkyEnable.Value = true;
+	p.inventory.Main.Value = true;
+	p.inventory.MainInfinity.Value = true;
+	p.inventory.Secondary.Value = true;
+	p.inventory.SecondaryInfinity.Value = true;
+	p.inventory.Melee.Value = true;
+	p.inventory.Explosive.Value = true;
+	p.inventory.ExplosiveInfinity.Value = true;
+	p.inventory.Build.Value = true;
+	p.inventory.BuildInfinity.Value = true;
+	p.Build.Pipette.Value = true;
+	p.Build.FlyEnable.Value = true;
+	p.Build.BalkLenChange.Value = true;
+	p.Build.BuildRangeEnable.Value = true;
+	p.Build.BuildModeEnable.Value = true;
+	p.Build.RemoveQuad.Value = true;
+	p.Build.FillQuad.Value = true;
+	p.Build.FloodFill.Value = true;
+	p.Build.ChangeSpawnsEnable.Value = true;
+	p.Build.LoadMapEnable.Value = true;
+	p.Build.ChangeMapAuthorsEnable.Value = true;
+	p.Build.GenMapEnable.Value = true;
+	p.Build.ChangeCameraPointsEnable.Value = true;
+	p.Build.CollapseChangeEnable.Value = true;
+	p.Build.QuadChangeEnable.Value = true;
+	p.Build.SetSkyEnable.Value = true;
 }
 
 function GiveTesterPlayer(p) {
-    SetPlayerFullInventory(p, true);
+	p.inventory.Main.Value = true;
+	p.inventory.MainInfinity.Value = true;
+	p.inventory.Secondary.Value = true;
+	p.inventory.SecondaryInfinity.Value = true;
+	p.inventory.Melee.Value = true;
+	p.inventory.Explosive.Value = true;
+	p.inventory.ExplosiveInfinity.Value = true;
+	p.inventory.Build.Value = true;
+	p.inventory.BuildInfinity.Value = true;
 }
 
-function SetPlayerFullInventory(p, v) {
-    p.inventory.Main.Value = v;
-    p.inventory.MainInfinity.Value = v;
-    p.inventory.Secondary.Value = v;
-    p.inventory.SecondaryInfinity.Value = v;
-    p.inventory.Melee.Value = v;
-    p.inventory.Explosive.Value = v;
-    p.inventory.ExplosiveInfinity.Value = v;
-    p.inventory.Build.Value = v;
-    p.inventory.BuildInfinity.Value = v;
+function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) {
+        Room.Teams.Add(TeamName, TeamDisplayName, TeamColor);
+        const NewTeam = Room.Teams.Get(TeamName);
+        NewTeam.Spawns.SpawnPointsGroups.Add(TeamSpawnPointGroup);
+        NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
+        return NewTeam;
 }
-
-// Создание новых команд
-function CreateTeam(Name, DisplayName, Color, SpawnGroups, BuildBlocksSet) {
-    const Team = Room.Teams.Add(Name, DisplayName, Color);
-    Team.Spawns.SpawnPointsGroups.Add(SpawnGroup);
-    Team.Build.BlocksSet.Value = BuildBlocksSet;
-    return Team;
+function CreateNewArea(AreaName, AreaTags, AreaEnable, AreaOnEnter, AreaOnExit, AreaViewName, AreaViewColor, AreaViewEnable) {
+        const NewArea = Room.AreaPlayerTriggerService.Get(AreaName);
+        NewArea.Tags = AreaTags;
+        NewArea.Enable = AreaEnable;
+        NewArea.OnEnter.Add(AreaOnEnter);
+        NewArea.OnExit.Add(AreaOnExit);
+        const NewAreaView = Room.AreaViewService.GetContext().Get(AreaViewName);
+        NewAreaView.Color = AreaViewColor;
+        NewAreaView.Tags = AreaTags;
+        NewAreaView.Enable = AreaViewEnable;
 }
