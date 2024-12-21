@@ -3,7 +3,7 @@
 // Попробуй её использовать если код сработает. Только знай что здесь нужны также ';' после if else и так далее и тому подобное.
 // Например попробуй ввести в чат '/code const p = Room.Players.GetByRoomId(1); p.PopUp('Привет!');'.
 //я попробовал код работает как надо наконец то можно убрать его последстивия chatgpt я ему не доверяю свои соры сочи теперь >:( 
-//а ты?
+//а ты? и кстати с Наступающим новым годом тебя!
 
 import * as Basic from 'pixel_combats/basic';
 import * as Room from 'pixel_combats/room';
@@ -37,7 +37,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
 		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
 	} else if (['C3D7820B078D4686', '6B04EDB276BB9145'].includes(p.id)) {
         	GiveTesterPlayer(p);
-		p.Properties.Get('Status').Value = '<b><i>Тестировщик</i></b>';
+		p.Properties.Get('Status').Value = '<b><i>Тестер</i></b>';
     	}
 });
 Room.Teams.OnPlayerChangeTeam.Add(function(p) { 
