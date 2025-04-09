@@ -371,3 +371,5 @@ function SendInformationAboutPlayerToPlayer(p1, p2) {
 	p2.PopUp(`Другая информация:\n Убийства: ${Player1Information.Kills},\n Смерти: ${Player1Information.Deaths},\n Очки: ${Player1Information.Scores},\n Максимальные жизни: ${Player1Information.MaxHp},\n Скин (идентификатор) (надетый): ${Player1Information.Skin},\n Полёт: ${Player1Information.Fly ? 'Да' : 'Нет'},\n 3D Позиция: X: ${Player1Information.Position.x.toFixed(3)}, Y: ${Player1Information.Position.y.toFixed(3)}, Z: ${Player1Information.Position.z.toFixed(3)},\n 2D Поворот: X: ${Player1Information.Rotation.x.toFixed(3)}, Y: ${Player1Information.Rotation.y.toFixed(3)}.`);
 	p2.PopUp('Приметка: При читерстве, данные игрока могут отображаться некорректно.');
 }
+//я не знаю когда ты прчитаешь это но я уже 3 месяца как не играю
+//нашел занятие мебе по вкусу я надеюсь твои проекты продвигаются
