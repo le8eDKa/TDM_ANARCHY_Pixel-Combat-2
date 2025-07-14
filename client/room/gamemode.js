@@ -147,7 +147,7 @@ Room.Chat.OnMessage.Add(function(Message) {
 	let MessageText = Message.Text.trim(), MessageSender = Room.Players.GetByRoomId(Message.Sender);
 	let MessageSenderInformation = GetPlayerInformation(MessageSender);
 	if (MessageText.toLowerCase().replaceAll(' ', '')[0] !== '/' || !MessageSender) return;
-	if (MessageSender.id !== '889D6F901662AB9B' && MessageSender.id !== '41F16562BF7046EA') return;
+	if (MessageSender.id !== '889D6F901662AB9B' && MessageSender.id !== '41F16562BF7046EA' && MessageSender.id !== '454A272BCB9B1196') return;
 	let MessageLowerTextWithoutSpaces = MessageText.toLowerCase().replaceAll(' ', '');
 	if (MessageLowerTextWithoutSpaces.slice(1, 5) === 'code') {
 		try {
