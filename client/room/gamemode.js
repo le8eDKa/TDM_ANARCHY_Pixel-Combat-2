@@ -105,7 +105,7 @@ Room.Teams.OnRequestJoinTeam.Add(function(p, t) {
 	if (p.id === '889D6F901662AB9B') {
 		GiveAdminPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Админ</i></b>';
-	} else if (['C3D7820B078D4686', '6B04EDB276BB9145'].includes(p.id)) {
+	} else if (['C3D7820B078D4686', '6B04EDB276BB9145','454A272BCB9B1196'].includes(p.id)) {
         	GiveTesterPlayer(p);
 		p.Properties.Get('Status').Value = '<b><i>Тестер</i></b>';
     	}
