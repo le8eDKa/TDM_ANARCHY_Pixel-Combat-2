@@ -1,6 +1,7 @@
 /*
 
 	Ладно, я смог всё же сюда попасть. Что дальше? Что нужно?
+я в вип с структурой накосячил сейчас исправлю и тестировать будем
 
 */
 
@@ -204,7 +205,7 @@ if (FunctionName === 'vip') {
     targetPlayer.PopUp('★Ты получил VIP!');
     MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
 	}
-
+});
 function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) {
         Room.Teams.Add(TeamName, TeamDisplayName, TeamColor);
         const NewTeam = Room.Teams.Get(TeamName);
