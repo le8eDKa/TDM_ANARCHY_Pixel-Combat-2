@@ -248,6 +248,32 @@ Room.Chat.OnMessage.Add(function(Message) {
 		SendInformationAboutPlayerToPlayer(ArgumentativePlayer, MessageSender);
 	}
 });
+if (FunctionName === 'vip') {
+    Arguments = Arguments.map(Argument => Argument.replaceAll(' ', ''));
+    if (Arguments[0]) Arguments[0] = Arguments[0].replaceAll('я', MessageSender.IdInRoom);
+    
+    if (Arguments.length !== 1) {
+        MessageSender.PopUp('Использование: /vip [RoomID]');
+        return;
+    }
+    
+    let targetPlayer = Room.Players.GetByRoomId(+Arguments[0]);
+    
+    if (!targetPlayer || !targetPlayer.Team) {
+        MessageSender.PopUp('Игрок не найден');
+        return;
+    }
+    
+    //            VIP бонусы 
+    targetPlayer.Build.FlyEnable.Value = true;
+    targetPlayer.inventory.MainInfinity.Value = true;
+    targetPlayer.inventory.Secondary.Value = true;
+    targetPlayer.contextedProperties.MaxHp.Value = 150;
+    targetPlayer.Properties.Get('Status').Value = '<b><i>★VIP★</i></b>';
+    
+    targetPlayer.PopUp('★Ты получил VIP!');
+    MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
+	}
 
 function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) {
         Room.Teams.Add(TeamName, TeamDisplayName, TeamColor);
