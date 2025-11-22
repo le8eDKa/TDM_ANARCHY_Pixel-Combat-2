@@ -9,7 +9,9 @@
 > А то накосячишь больше... 
 < Кусок кода, и да, больше не буду, я же специально сделал модульно, чтобы закоментировать потом.
 > Не думаю... Там просто скобка лишняя. Видно что скопировал, хаха. Так или иначе просто обнови и проверь, работает ли режим.
-< режим да ,а вот запрос функции через запрос в чате нет...
+< Режим да, а вот запрос функции через запрос в чате нет...
+> Ладно, а что происходит вообще, какая проблема? Типо ты пишешь /vip 1, а потом... Пишет "Игрок не найден", или ничего не происходит, или ещё что-то.
+
 */
 
 import * as Basic from 'pixel_combats/basic';
@@ -209,7 +211,6 @@ if (FunctionName === 'vip') {
     targetPlayer.Properties.Get('Status').Value = '<b><i>★VIP★</i></b>';
     targetPlayer.PopUp('★Ты получил VIP!');
     MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
-	return;
 	}
 });
 function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) {
