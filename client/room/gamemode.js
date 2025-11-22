@@ -158,7 +158,7 @@ Room.Chat.OnMessage.Add(function(Message) {
 		return;
 	}
 	if (!MessageSender.Team) return;
-	let FunctionNames = ['ban', 'info'];
+	let FunctionNames = ['ban', 'info', 'vip'];
 	let FunctionName = MessageLowerTextWithoutSpaces.slice(1, MessageLowerTextWithoutSpaces.includes('(') ? MessageLowerTextWithoutSpaces.indexOf('(') : MessageText.includes(' ') ? MessageText.indexOf(' ') : MessageText.length);
 	if (!FunctionNames.includes(FunctionName)) {
 		MessageSender.PopUp(`Команда: \'${FunctionName}\' не была найдена.`);
