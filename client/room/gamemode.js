@@ -2,7 +2,7 @@
 
 	Ладно, я смог всё же сюда попасть. Что дальше? Что нужно?
 я в вип с структурой накосячил сейчас исправлю и тестировать будем
-
+твою ж он весь режим за собой унес 
 */
 
 import * as Basic from 'pixel_combats/basic';
@@ -179,7 +179,7 @@ Room.Chat.OnMessage.Add(function(Message) {
 		SendInformationAboutPlayerToPlayer(ArgumentativePlayer, MessageSender);
 	}
 });
-if (FunctionName === 'vip') {
+/*if (FunctionName === 'vip') {
     Arguments = Arguments.map(Argument => Argument.replaceAll(' ', ''));
     if (Arguments[0]) Arguments[0] = Arguments[0].replaceAll('я', MessageSender.IdInRoom);
     
@@ -206,6 +206,8 @@ if (FunctionName === 'vip') {
     MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
 	}
 });
+где-то здесь собака зарыта
+*/
 function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) {
         Room.Teams.Add(TeamName, TeamDisplayName, TeamColor);
         const NewTeam = Room.Teams.Get(TeamName);
