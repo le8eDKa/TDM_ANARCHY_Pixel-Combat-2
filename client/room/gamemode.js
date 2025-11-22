@@ -24,13 +24,15 @@
 < А нет, всё заработало, спасибо!
 > Не за что. Если ещё что-то надо, ответь не больше чем через 10 минут, иначе пойду по своим делам. 
 > Может увидимся. Удачи заранее, спокойной ночи и пока.
-< Пока кстати не напомнишь где защита блоков от разрушения? Мне кажется режим станет лучше если я уберу его
+< Пока. Кстати, не напомнишь где защита блоков от разрушения? Мне кажется режим станет лучше, если я уберу её.
+> Ты хочешь чтобы блоки можно было ломать? Если да, просто обнови режим, сделал только что. Если нет опиши лучше, я не понял.
+
 */
 
 import * as Basic from 'pixel_combats/basic';
 import * as Room from 'pixel_combats/room';
 
-Room.BreackGraph.OnlyPlayerBlocksDmg = true;
+Room.BreackGraph.OnlyPlayerBlocksDmg = false;
 Room.BreackGraph.PlayerBlockBoost = true;
 Room.Damage.GetContext().DamageOut.Value = true;
 Room.Damage.GetContext().FriendlyFire.Value = true;
