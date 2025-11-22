@@ -18,7 +18,9 @@
 	- пиши без пробела вначале, вначале обязательно должен быть /
 > И я понял чего не выводит. Секунду... Обнови и проверь. PopUp-ы были выключены. Сейчас, может будет лучше.
 > Но айди всё равно проверь, важно.
-< Я перепроверил айди старый и заработали старые команды новая ещё нет
+< Я перепроверил айди, он старый. Все команды заработали, кроме новой.
+> Ок. Я переделал команду vip и добавил "ловлю ошибок". Если что-то сломается должно вывести сообщение о ошибке.
+> Тогда, если выведет, просто дай мне её текст. Без путя файла.
 
 */
 
@@ -93,6 +95,7 @@ globalThis.Room = Room;
 globalThis.Basic = Basic;
 	
 Room.Chat.OnMessage.Add(function(Message) {
+	try {
 	let MessageText = Message.Text.trim(), MessageSender = Room.Players.GetByRoomId(Message.Sender);
 	let MessageSenderInformation = GetPlayerInformation(MessageSender);
 	if (MessageText.toLowerCase().replaceAll(' ', '')[0] !== '/' || !MessageSender) return;
@@ -196,31 +199,32 @@ Room.Chat.OnMessage.Add(function(Message) {
 		}
 		SendInformationAboutPlayerToPlayer(ArgumentativePlayer, MessageSender);
 	}
-if (FunctionName === 'vip') {
-    Arguments = Arguments.map(Argument => Argument.replaceAll(' ', ''));
-    if (Arguments[0]) Arguments[0] = Arguments[0].replaceAll('я', MessageSender.IdInRoom);
-    
-    if (Arguments.length !== 1) {
-        MessageSender.PopUp('Использование: /vip [RoomID]');
-        return;
-    }
-    
-    let targetPlayer = Room.Players.GetByRoomId(+Arguments[0]);
-    
-    if (!targetPlayer || !targetPlayer.Team) {
-        MessageSender.PopUp('Игрок не найден');
-        return;
-    }
-    targetPlayer.Build.FlyEnable.Value = true;
-    targetPlayer.inventory.Main.Value = true;
-    targetPlayer.inventory.MainInfinity.Value = true;
-    targetPlayer.inventory.Secondary.Value = true;
-    targetPlayer.inventory.SecondaryInfinity.Value = true;
-    targetPlayer.contextedProperties.MaxHp.Value = 150;
-    targetPlayer.Properties.Get('Status').Value = '<b><i>★VIP★</i></b>';
-    targetPlayer.PopUp('★Ты получил VIP!');
-    MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
+	if (FunctionName === 'vip') {
+		Arguments = Arguments.map(Argument => Argument.replaceAll(' ', ''));
+		if (Arguments[0]) Arguments[0] = Arguments[0].replaceAll('я', MessageSender.IdInRoom);
+		if (Arguments.length !== 1) {
+			MessageSender.PopUp(`Команда: \'${MessageText}\' не была выполнена (ошибка). Причина: Неправильное количество аргументов (должно быть: 1).`);
+			return;
+		}
+		if (isNaN(+Arguments[0])) {
+			MessageSender.PopUp(`Команда: \'${MessageText}\' не была выполнена (ошибка). Причина: Некорректный тип аргумента №1 (должен быть: Число).`);
+			return;
+		}
+		let ArgumentativePlayer = Room.Players.GetByRoomId(+Arguments[0]);
+		let ArgumentativePlayerInformation = GetPlayerInformation(ArgumentativePlayer);
+		if (!ArgumentativePlayer) {
+			MessageSender.PopUp(`Команда: \'${MessageText}\' не была выполнена (ошибка). Причина: Игрока с RoomID аргумент №1 нет.`);
+			return;
+		}
+		if (!ArgumentativePlayer.Team) {
+			MessageSender.PopUp(`Команда: \'${MessageText}\' не была выполнена (ошибка). Причина: Игрок с RoomID аргумент №1 находится вне команд.`);
+			return;
+		}
+		GiveTesterPlayer(ArgumentativePlayer);
+		ArgumentativePlayer.Properties.Get('Status').Value = '<b><i>★VIP★</i></b>';
+		MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
 	}
+} catch (e) { Room.msg.Show(e); }
 });
 function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) {
         Room.Teams.Add(TeamName, TeamDisplayName, TeamColor);
