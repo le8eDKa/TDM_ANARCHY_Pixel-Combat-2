@@ -12,6 +12,12 @@
 < Режим да, а вот запрос функции через запрос в чате нет...
 > Ладно, а что происходит вообще, какая проблема? Типо ты пишешь /vip 1, а потом... Пишет "Игрок не найден", или ничего не происходит, или ещё что-то.
 < Ничего не происходит и даже если другие чат команды...
+> Аккаунт у тебя тот же что и был? Айди должен быть: 889D6F901662AB9B. Или же 454A272BCB9B1196.
+> Если да то:
+	- пиши в чат, когда уже находишься внутри команды (государство/революционеры),
+	- пиши без пробела вначале, вначале обязательно должен быть /
+> И я понял чего не выводит. Секунду... Обнови и проверь. PopUp-ы были выключены. Сейчас, может будет лучше.
+
 */
 
 import * as Basic from 'pixel_combats/basic';
@@ -22,6 +28,7 @@ Room.BreackGraph.PlayerBlockBoost = true;
 Room.Damage.GetContext().DamageOut.Value = true;
 Room.Damage.GetContext().FriendlyFire.Value = true;
 Room.TeamsBalancer.IsAutoBalance = true;
+Room.room.PopupsEnable = true;
 
 const BlueTeam = CreateNewTeam('Blue', '<b><i>Государство</i></b>', new Basic.Color(0, 0, 1, 0), 1, Room.BuildBlocksSet.Blue),
 	RedTeam = CreateNewTeam('Red', '<b><i>Революционеры</i></b>', new Basic.Color(1, 0, 0, 0), 2, Room.BuildBlocksSet.Red);
