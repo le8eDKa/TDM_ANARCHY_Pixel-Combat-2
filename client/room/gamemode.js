@@ -232,7 +232,7 @@ Room.Chat.OnMessage.Add(function(Message) {
 		}
 		GiveVIPPlayer(ArgumentativePlayer);
 		ArgumentativePlayer.Properties.Get('Status').Value = '<b><i>★VIP★</i></b>';
-		MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
+		MessageSender.PopUp(`✓ ${ArgumentativePlayer.NickName} получил VIP`);
 	}
 } catch (e) { Room.msg.Show(e); }
 });
