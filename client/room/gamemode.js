@@ -335,6 +335,10 @@ function GiveTesterPlayer(p) {
 	p.inventory.Build.Value = true;
 	p.inventory.BuildInfinity.Value = true;
 }
+function GiveVIPPlayer(p){
+	p.inventory.Main.Value = true;
+	p.inventory.MainInfinity.Value = true;
+	p.Build.FlyEnable.Value = true;
 function GiveBanPlayer(p) {
 	if (!p) return;
 	if (!p.Team) return;
