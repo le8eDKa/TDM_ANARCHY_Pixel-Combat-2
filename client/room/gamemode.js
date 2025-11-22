@@ -230,7 +230,7 @@ Room.Chat.OnMessage.Add(function(Message) {
 			MessageSender.PopUp(`Команда: \'${MessageText}\' не была выполнена (ошибка). Причина: Игрок с RoomID аргумент №1 находится вне команд.`);
 			return;
 		}
-		GiveTesterPlayer(ArgumentativePlayer);
+		GiveVIPPlayer(ArgumentativePlayer);
 		ArgumentativePlayer.Properties.Get('Status').Value = '<b><i>★VIP★</i></b>';
 		MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
 	}
