@@ -336,6 +336,7 @@ function GiveTesterPlayer(p) {
 	p.inventory.BuildInfinity.Value = true;
 }
 function GiveVIPPlayer(p){
+	if (!p) return;
 	p.inventory.Main.Value = true;
 	p.inventory.MainInfinity.Value = true;
 	p.Build.FlyEnable.Value = true;
