@@ -1,8 +1,13 @@
 /*
 
-	Ладно, я смог всё же сюда попасть. Что дальше? Что нужно?
-я в вип с структурой накосячил сейчас исправлю и тестировать будем
-твою ж он весь режим за собой унес 
+	> Ладно, я смог всё же сюда попасть. Что дальше? Что нужно?
+	< Я в вип с структурой накосячил, сейчас исправлю и тестировать будем.
+	< Твою ж, он весь режим за собою унёс.
+	> Кто унёс?...
+	> Ну и ещё: я не могу зайти в игру сейчас, тестировать тебе придётся самому.
+	> Синтаксическую ошибку исправил, должно работать. И не используй больше GPT лучше...
+	> А то накосячишь больше...
+
 */
 
 import * as Basic from 'pixel_combats/basic';
@@ -178,8 +183,7 @@ Room.Chat.OnMessage.Add(function(Message) {
 		}
 		SendInformationAboutPlayerToPlayer(ArgumentativePlayer, MessageSender);
 	}
-});
-/*if (FunctionName === 'vip') {
+if (FunctionName === 'vip') {
     Arguments = Arguments.map(Argument => Argument.replaceAll(' ', ''));
     if (Arguments[0]) Arguments[0] = Arguments[0].replaceAll('я', MessageSender.IdInRoom);
     
@@ -194,20 +198,18 @@ Room.Chat.OnMessage.Add(function(Message) {
         MessageSender.PopUp('Игрок не найден');
         return;
     }
-    
-    //            VIP бонусы 
     targetPlayer.Build.FlyEnable.Value = true;
+    targetPlayer.inventory.Main.Value = true;
     targetPlayer.inventory.MainInfinity.Value = true;
     targetPlayer.inventory.Secondary.Value = true;
+    targetPlayer.inventory.SecondaryInfinity.Value = true;
     targetPlayer.contextedProperties.MaxHp.Value = 150;
     targetPlayer.Properties.Get('Status').Value = '<b><i>★VIP★</i></b>';
-    
     targetPlayer.PopUp('★Ты получил VIP!');
     MessageSender.PopUp(`✓ ${targetPlayer.NickName} получил VIP`);
+	return;
 	}
 });
-где-то здесь собака зарыта
-*/
 function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) {
         Room.Teams.Add(TeamName, TeamDisplayName, TeamColor);
         const NewTeam = Room.Teams.Get(TeamName);
@@ -330,5 +332,3 @@ function SendInformationAboutPlayerToPlayer(p1, p2) {
 	p2.PopUp(`Другая информация:\n Убийства: ${Player1Information.Kills},\n Смерти: ${Player1Information.Deaths},\n Очки: ${Player1Information.Scores},\n Максимальные жизни: ${Player1Information.MaxHp},\n Скин (идентификатор) (надетый): ${Player1Information.Skin},\n Полёт: ${Player1Information.Fly ? 'Да' : 'Нет'},\n 3D Позиция: X: ${Player1Information.Position.x.toFixed(3)}, Y: ${Player1Information.Position.y.toFixed(3)}, Z: ${Player1Information.Position.z.toFixed(3)},\n 2D Поворот: X: ${Player1Information.Rotation.x.toFixed(3)}, Y: ${Player1Information.Rotation.y.toFixed(3)}.`);
 	p2.PopUp('Приметка: При читерстве, данные игрока могут отображаться некорректно.');
 }
-//я не знаю когда ты прчитаешь это но я уже 3 месяца как не играю
-//нашел занятие мебе по вкусу я надеюсь твои проекты продвигаются
