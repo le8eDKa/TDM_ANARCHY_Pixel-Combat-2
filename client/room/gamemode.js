@@ -76,7 +76,11 @@ Room.Teams.OnPlayerChangeTeam.Add(function(p) {
 	if (p.id === 'AF89DB0FE9E8495F') p.PopUp('Привет НИКИТА >:)');
 	else p.PopUp(`Привет \'${p.NickName}\'!`);
 });
-
+Room.Teams.OnPlayerChangeTeam.Add(function(p) { 
+        p.Spawns.Spawn();
+	if (p.id === 'D79592A274F501F7') p.PopUp('Привет Константигополь ;')');
+	else p.PopUp(`Привет \'${p.NickName}\'!`);
+});
 Room.Spawns.GetContext().OnSpawn.Add(function(p) {
 	p.Properties.Immortality.Value = true;
 	p.Timers.Get('Immortality').Restart(5);
